@@ -1,0 +1,47 @@
+https://www.youtube.com/watch?v=bgIUdb-7Rqo
+Create Main2Activity
+- skip this: ConstraintLayout>RelativeLayout in activity_main.xml, activity_main2
+- add start Button
+- code in MainActivity using Intent for Activity1->Activity2
+
+Activity 2 (Game):
+
+function below onCreate: repeated():
+	Create ArrayList of member names
+	move member pics to res/drawablesuse
+	- code: use Random to get random field in drawables and set to ImageView
+	add four Buttons (id: choice1,2,3,4), put in ArrayList choice_list
+	[NOT USED]- code: set android:onClick="" for each in .xml
+	[NOT USED]- add onClick1(View view) for each
+	[instead:] iterate through ArrayList of buttons and set onClick based on if correct or not
+	call repeated()
+add 2 TextViews: one for "Score" and one for the actual score number (score_num)
+
+function below onCreate: setButtons():
+	generate random int from 1-4 as correct choice
+	set button[random int]'s text to correct name, and others to random
+
+function below repeated(): increment_score():
+	parse TextView score_num for integer, increment, and setText to update
+
+create contact on tap of img w/ intent (Google'd)
+add end game Button
+add timer in repeated() (Google'd)
+
+Failed way to get random member pics:
+   	final Random rand = new Random();
+   	final Class drawableClass = R.drawable.class;
+  	final Field[] fields = drawableClass.getFields(); //member images
+        int rndInt = rand.nextInt(fields.length);
+        String name = fields[rndInt].getName();
+        if (fields[rndInt].getName().contains("ic_launcher")){
+            rndInt = rand.nextInt(fields.length);
+        }
+        txt.setText(name); //for debugging purposes
+        try {
+            int resID = fields[rndInt].getInt(drawableClass);
+            img.setImageResource(resID);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+Would get random files. Instead, get random element of ArrayList names, remove space and downcase everything, then get file from drawable with filename.
